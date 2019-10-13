@@ -14,6 +14,8 @@ interface Props {
 }
 
 const StoreTable: FC<Props> = props => {
+  console.log(props.storeListInfo.list);
+
   const columns = [
     {
       title: 'ID',
@@ -53,11 +55,11 @@ const StoreTable: FC<Props> = props => {
     },
     {
       title: '下载链接',
-      dataIndex: 'downloadUrl',
-      key: 'downloadUrl',
+      dataIndex: 'downLoadUrl',
+      key: 'downLoadUrl',
       render(value: string) {
         if (value) {
-          return <a href={value} target="_blank">查看</a>;
+          return <a href={value} target="_blank">下载</a>;
         }
         return ' - ';
       },
