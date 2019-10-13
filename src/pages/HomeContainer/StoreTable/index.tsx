@@ -4,7 +4,8 @@ import { GetStoreTableListParams } from '../../../server';
 
 interface Props {
   storeList: any[];
-  handleFetchList: (params: GetStoreTableListParams) => Promise<any>;
+  handleFetchList?: (params: GetStoreTableListParams) => Promise<any>;
+  loading?: boolean;
 }
 
 const StoreTable: FC<Props> = props => {
@@ -62,6 +63,7 @@ const StoreTable: FC<Props> = props => {
     <div>
       <Table
         bordered
+        loading={props.loading}
         columns={columns}
         dataSource={props.storeList.map((item, index) => Object.assign(item, { key: index }))}
       />

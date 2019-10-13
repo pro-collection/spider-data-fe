@@ -7,15 +7,21 @@ import { message } from 'antd';
 
 const HomeContainer: FC = () => {
   const [storeList, updateStoreList] = useState<TableList[]>([]);
+  const [loading, updateLoading] = useState(false);
 
   /**
    * 列表数据请求方法
    * @param params
    */
-  const handleFetchList = (params: GetStoreTableListParams) =>
-    getStoreTableList(params)
+  const handleFetchList = (params: GetStoreTableListParams) => {
+    updateLoading(true);
+    return getStoreTableList(params)
       .then(res => updateStoreList(res))
-      .catch(err => message.error(err.message));
+      .catch(err => message.error(err.message))
+      .finally(() => {
+        updateLoading(false);
+      });
+  };
 
   useEffect(() => {
     handleFetchList({
@@ -30,6 +36,7 @@ const HomeContainer: FC = () => {
         handleFetchList={handleFetchList}
       />
       <StoreTable
+        loading={loading}
         handleFetchList={handleFetchList}
         storeList={storeList}
       />
