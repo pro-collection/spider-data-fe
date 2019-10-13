@@ -1,11 +1,16 @@
 import React, { FC } from 'react';
 import { Table } from 'antd';
 import { GetStoreTableListParams, TableListInfo } from '../../../server';
+import { match, withRouter } from 'react-router';
+import { History, Location, LocationState } from 'history';
 
 interface Props {
   storeListInfo: TableListInfo;
   handleFetchList: (params: GetStoreTableListParams) => void;
   loading?: boolean;
+  history: History;
+  location: Location<LocationState>;
+  match: match;
 }
 
 const StoreTable: FC<Props> = props => {
@@ -60,10 +65,16 @@ const StoreTable: FC<Props> = props => {
   ];
 
   const handlePageChange = (page: number, pageSize: number) => {
-    props.handleFetchList({
+    props.history.push({
+      state: Object.assign({}, props.location.state, {
+        page,
+        size: pageSize,
+      }),
+    });
+    props.handleFetchList(Object.assign({}, props.location.state, {
       page,
       size: pageSize,
-    });
+    }));
   };
 
   return (
@@ -88,4 +99,4 @@ const StoreTable: FC<Props> = props => {
   );
 };
 
-export default StoreTable;
+export default withRouter(StoreTable);
