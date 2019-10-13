@@ -121,6 +121,9 @@ module.exports = {
     }),
   ],
   resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     modules: [
       path.resolve(paths.PATH_SRC),
