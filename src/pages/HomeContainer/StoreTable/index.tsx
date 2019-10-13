@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Table } from 'antd';
-import { GetStoreTableListParams } from '../../../server';
+import { GetStoreTableListParams, TableListInfo } from '../../../server';
 
 interface Props {
-  storeList: any[];
-  handleFetchList?: (params: GetStoreTableListParams) => Promise<any>;
+  storeListInfo: TableListInfo;
+  handleFetchList: (params: GetStoreTableListParams) => void;
   loading?: boolean;
 }
 
@@ -59,13 +59,30 @@ const StoreTable: FC<Props> = props => {
     },
   ];
 
+  const handlePageChange = (page: number, pageSize: number) => {
+    props.handleFetchList({
+      page,
+      size: pageSize,
+    });
+  };
+
   return (
     <div>
       <Table
         bordered
         loading={props.loading}
         columns={columns}
-        dataSource={props.storeList.map((item, index) => Object.assign(item, { key: index }))}
+        // @ts-ignore
+        pagination={{
+          onChange: handlePageChange,
+          total: props.storeListInfo.total,
+          showQuickJumper: true,
+          hideOnSinglePage: true,
+          defaultCurrent: 1,
+          defaultPageSize: 20,
+          pageSizeOptions: ['10, 20', '50', '100'],
+        }}
+        dataSource={props.storeListInfo.list.map((item, index) => Object.assign(item, { key: index }))}
       />
     </div>
   );

@@ -1,6 +1,5 @@
 import * as utils from 'utils';
 import { get } from 'lodash';
-import { PromiseState } from 'q';
 
 const { axios } = utils;
 
@@ -37,10 +36,17 @@ export interface TableList {
   downloadUrl: string;
 }
 
+export interface TableListInfo {
+  list: TableList[];
+  pageNum: number;
+  pageSize: number;
+  total: number;
+}
+
 export const getStoreTableList = (options?: GetStoreTableListParams) =>
   axios({
     url: '/api/store/list/',
     params: options,
-  }).then(res => Promise.resolve(get(res, 'data.list', [])));
+  }).then(res => Promise.resolve(get(res, 'data', { list: [] })));
 
 export default { getSceneInfo, proxyGithubApi };

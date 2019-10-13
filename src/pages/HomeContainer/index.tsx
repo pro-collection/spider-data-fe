@@ -2,21 +2,26 @@ import React, { FC, useEffect, useState } from 'react';
 import styles from './index.less';
 import StoreTableSearchInput from './StoreTableSearchInput';
 import StoreTable from './StoreTable';
-import { getStoreTableList, GetStoreTableListParams, TableList } from '../../server';
+import { getStoreTableList, GetStoreTableListParams, TableListInfo } from '../../server';
 import { message } from 'antd';
 
 const HomeContainer: FC = () => {
-  const [storeList, updateStoreList] = useState<TableList[]>([]);
+  const [storeListInfo, updateStoreListInfo] = useState<TableListInfo>({
+    list: [],
+    pageNum: 0,
+    pageSize: 0,
+    total: 0,
+  });
   const [loading, updateLoading] = useState(false);
 
   /**
    * 列表数据请求方法
    * @param params
    */
-  const handleFetchList = (params: GetStoreTableListParams) => {
+  const handleFetchList = (params: GetStoreTableListParams = {}) => {
     updateLoading(true);
     return getStoreTableList(params)
-      .then(res => updateStoreList(res))
+      .then(res => updateStoreListInfo(res))
       .catch(err => message.error(err.message))
       .finally(() => {
         updateLoading(false);
@@ -24,9 +29,7 @@ const HomeContainer: FC = () => {
   };
 
   useEffect(() => {
-    handleFetchList({
-      size: 10,
-    });
+    handleFetchList();
   }, []);
 
   return (
@@ -38,7 +41,7 @@ const HomeContainer: FC = () => {
       <StoreTable
         loading={loading}
         handleFetchList={handleFetchList}
-        storeList={storeList}
+        storeListInfo={storeListInfo}
       />
     </div>
   );
