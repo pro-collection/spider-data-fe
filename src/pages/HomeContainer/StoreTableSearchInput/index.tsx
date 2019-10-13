@@ -1,14 +1,21 @@
 import React, { FC } from 'react';
 import { Input } from 'antd';
 import { GetStoreTableListParams } from '../../../server';
+import { match, withRouter } from 'react-router';
+import { History, Location, LocationState } from 'history';
 
 const { Search } = Input;
 
 interface Props {
   handleFetchList: (params: GetStoreTableListParams) => Promise<any>;
+  history: History;
+  location: Location<LocationState>;
+  match: match;
 }
 
 const SearchInput: FC<Props> = props => {
+
+  console.log(props.history);
 
   return (
     <Search
@@ -19,4 +26,4 @@ const SearchInput: FC<Props> = props => {
   );
 };
 
-export default SearchInput;
+export default withRouter(SearchInput);
