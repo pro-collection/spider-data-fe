@@ -62,11 +62,8 @@ module.exports = merge(baseConfig, {
     },
     proxy: {
       '/api': {
-        target: '',
+        target: 'http://192.168.205.10:8080',
         changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/',
-        },
         logLevel: 'debug',
       },
     },
