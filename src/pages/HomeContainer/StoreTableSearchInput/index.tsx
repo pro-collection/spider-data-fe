@@ -1,16 +1,20 @@
 import React, { FC } from 'react';
 import { Input } from 'antd';
+import { GetStoreTableListParams } from '../../../server';
 
 const { Search } = Input;
 
-const SearchInput: FC = () => {
+interface Props {
+  handleFetchList: (params: GetStoreTableListParams) => Promise<any>;
+}
+
+const SearchInput: FC<Props> = props => {
+
   return (
     <Search
-      style={{marginBottom: '15px'}}
+      style={{ marginBottom: '15px' }}
       placeholder="关键字搜索"
-      onSearch={(value) => {
-        console.log(value);
-      }}
+      onSearch={(value) => props.handleFetchList({ query: value })}
     />
   );
 };

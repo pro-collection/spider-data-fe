@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import { Table } from 'antd';
+import { GetStoreTableListParams } from '../../../server';
 
 interface Props {
   storeList: any[];
+  handleFetchList: (params: GetStoreTableListParams) => Promise<any>;
 }
 
 const StoreTable: FC<Props> = props => {

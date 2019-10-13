@@ -20,7 +20,7 @@ const proxyGithubApi = () => {
   }).then((res: object) => res).catch((err: object) => err);
 };
 
-interface GetStoreTableListParams {
+export interface GetStoreTableListParams {
   query?: string;
   page?: number;
   size?: number;
