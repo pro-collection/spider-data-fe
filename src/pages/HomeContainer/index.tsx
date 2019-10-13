@@ -1,18 +1,29 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styles from './index.less';
+import StoreTableSearchInput from './StoreTableSearchInput';
+import StoreTable from './StoreTable';
+import { getStoreTableList, TableList } from '../../server';
+import { message } from 'antd';
 
 const HomeContainer: FC = () => {
-  return (
-    <>
-      <h2>爬虫数据</h2>
-      <div className={styles.container}>
-        内容
+  const [storeList, updateStoreList] = useState<TableList[]>([]);
 
-        <div className="content">
-          我要变色
-        </div>
-      </div>
-    </>
+  useEffect(() => {
+    getStoreTableList({
+      size: 10,
+    })
+      .then(res => updateStoreList(res))
+      .catch(err => message.error(err.message));
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      <h2>爬虫数据</h2>
+      <StoreTableSearchInput/>
+      <StoreTable
+        storeList={storeList}
+      />
+    </div>
   );
 };
 
