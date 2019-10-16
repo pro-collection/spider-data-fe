@@ -1,1 +1,1 @@
-declare module 'index.less';
+declare module '*index.less';

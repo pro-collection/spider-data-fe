@@ -16,8 +16,6 @@ const Counter: FC<Props> = props => {
 
   const [showTimer, updateShowTimer] = useState(false);
 
-  console.log(countState);
-
   return (
     <div>
       <Button onClick={() => updateShowTimer(true)}>点击展示timer</Button>

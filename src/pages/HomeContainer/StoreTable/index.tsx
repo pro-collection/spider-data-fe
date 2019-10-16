@@ -15,8 +15,6 @@ interface Props {
 }
 
 const StoreTable: FC<Props> = props => {
-  console.log(props.storeListInfo.list);
-
   const columns = [
     {
       title: 'ID',
@@ -34,12 +32,32 @@ const StoreTable: FC<Props> = props => {
       key: 'title',
     },
     {
-      title: () => <StoreTableTitle iconType="read">查看量</StoreTableTitle>,
+      title: () => (
+        <StoreTableTitle
+          handleFetchList={props.handleFetchList}
+          orderType="look_over"
+          location={props.location}
+          history={props.history}
+          iconType="read"
+        >
+          查看量
+        </StoreTableTitle>
+      ),
       dataIndex: 'lookOver',
       key: 'lookOver',
     },
     {
-      title: () => <StoreTableTitle iconType="read">回复量</StoreTableTitle>,
+      title: () => (
+        <StoreTableTitle
+          handleFetchList={props.handleFetchList}
+          orderType="reply"
+          location={props.location}
+          history={props.history}
+          iconType="save"
+        >
+          回复量
+        </StoreTableTitle>
+      ),
       dataIndex: 'reply',
       key: 'reply',
     },

@@ -22,7 +22,7 @@ const SearchInput: FC<Props> = props => {
         props.history.push({
           state: { query: value },
         });
-        props.handleFetchList(Object.assign({}, props.location.state, { query: value }));
+        props.handleFetchList({ query: value });
       }}
     />
   );
