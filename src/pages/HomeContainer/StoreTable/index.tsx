@@ -3,6 +3,7 @@ import { Table } from 'antd';
 import { GetStoreTableListParams, TableListInfo } from '../../../server';
 import { match, withRouter } from 'react-router';
 import { History, Location, LocationState } from 'history';
+import StoreTableTitle from './StoreTableTitle';
 
 interface Props {
   storeListInfo: TableListInfo;
@@ -33,12 +34,12 @@ const StoreTable: FC<Props> = props => {
       key: 'title',
     },
     {
-      title: '查看量',
+      title: () => <StoreTableTitle iconType="read">查看量</StoreTableTitle>,
       dataIndex: 'lookOver',
       key: 'lookOver',
     },
     {
-      title: '回复量',
+      title: () => <StoreTableTitle iconType="read">回复量</StoreTableTitle>,
       dataIndex: 'reply',
       key: 'reply',
     },
