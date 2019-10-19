@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Table } from 'antd';
+import React, { FC } from 'react';
+import { Table, Checkbox } from 'antd';
 import { GetStoreTableListParams, TableListInfo } from '../../../server';
 import { match, withRouter } from 'react-router';
 import { History, Location, LocationState } from 'history';
@@ -20,6 +20,22 @@ const StoreTable: FC<Props> = props => {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
+    },
+    {
+      title: '已读',
+      dataIndex: 'is_looked',
+      key: 'is_looked',
+      render(value: number) {
+        return <div style={{textAlign: 'center'}}><Checkbox checked={value === 1} disabled/></div>;
+      },
+    },
+    {
+      title: '已下',
+      dataIndex: 'is_download',
+      key: 'is_download',
+      render(value: number) {
+        return <div style={{textAlign: 'center'}}><Checkbox checked={value === 1} disabled/></div>;
+      },
     },
     {
       title: '关键字',
