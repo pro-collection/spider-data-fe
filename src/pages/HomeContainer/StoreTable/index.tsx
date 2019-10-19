@@ -32,7 +32,7 @@ const StoreTable: FC<Props> = props => {
       dataIndex: 'isLooked',
       key: 'isLooked',
       render(value: number) {
-        return <div style={{textAlign: 'center'}}><Checkbox checked={value === 1} disabled/></div>;
+        return <div style={{ textAlign: 'center' }}><Checkbox checked={value === 1} disabled/></div>;
       },
     },
     {
@@ -40,7 +40,7 @@ const StoreTable: FC<Props> = props => {
       dataIndex: 'isDownLoad',
       key: 'isDownLoad',
       render(value: number) {
-        return <div style={{textAlign: 'center'}}><Checkbox checked={value === 1} disabled/></div>;
+        return <div style={{ textAlign: 'center' }}><Checkbox checked={value === 1} disabled/></div>;
       },
     },
     {
@@ -89,7 +89,15 @@ const StoreTable: FC<Props> = props => {
       key: 'detailUrl',
       render(value: string, row: TableListItem) {
         if (value) {
-          return <a href={value} onClick={()=>updateIsLookedApi(row.id)} target="_blank">查看</a>;
+          return <a
+            href={value}
+            onClick={() => {
+              if (row.isLooked !== 1) updateIsLookedApi(row.id);
+            }}
+            target="_blank"
+          >
+            查看
+          </a>;
         }
         return ' - ';
       },
@@ -100,7 +108,15 @@ const StoreTable: FC<Props> = props => {
       key: 'downLoadUrl',
       render(value: string, row: TableListItem) {
         if (value) {
-          return <a href={value} target="_blank" onClick={()=>updateIsDownloadApi(row.id)}>下载</a>;
+          return <a
+            href={value}
+            target="_blank"
+            onClick={() => {
+              if (row.isDownLoad !== 1) updateIsDownloadApi(row.id);
+            }}
+          >
+            下载
+          </a>;
         }
         return ' - ';
       },

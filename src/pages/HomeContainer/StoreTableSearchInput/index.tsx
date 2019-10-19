@@ -20,6 +20,7 @@ const SearchInput: FC<Props> = props => {
 
   return (
     <Search
+      allowClear
       value={value}
       onChange={event => updateValue(event.target.value)}
       style={{ marginBottom: '15px' }}
