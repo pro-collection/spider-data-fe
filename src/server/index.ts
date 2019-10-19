@@ -26,7 +26,7 @@ export interface GetStoreTableListParams {
   order?: 'reply' | 'look_over';
 }
 
-export interface TableList {
+export interface TableListItem {
   id: number;
   keyWord: string;
   title: string;
@@ -34,10 +34,12 @@ export interface TableList {
   reply: number;
   detailUrl: string;
   downloadUrl: string;
+  isLooked: number;
+  isDownLoad: number;
 }
 
 export interface TableListInfo {
-  list: TableList[];
+  list: TableListItem[];
   pageNum: number;
   pageSize: number;
   total: number;
@@ -48,5 +50,21 @@ export const getStoreTableList = (options?: GetStoreTableListParams) =>
     url: '/api/store/list/',
     params: options,
   }).then(res => Promise.resolve(get(res, 'data', { list: [] })));
+
+export const updateIsLookedApi = (id: number) => {
+  axios({
+    url: '/api/store/update_is_looked/',
+    method: 'post',
+    data: {id},
+  });
+};
+
+export const updateIsDownloadApi = (id: number) => {
+  axios({
+    url: '/api/store/update_is_download/',
+    method: 'post',
+    data: {id},
+  });
+};
 
 export default { getSceneInfo, proxyGithubApi };

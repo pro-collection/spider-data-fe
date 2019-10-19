@@ -1,6 +1,12 @@
 import React, { FC } from 'react';
 import { Table, Checkbox } from 'antd';
-import { GetStoreTableListParams, TableListInfo } from '../../../server';
+import {
+  GetStoreTableListParams,
+  TableListInfo,
+  TableListItem,
+  updateIsDownloadApi,
+  updateIsLookedApi,
+} from '../../../server';
 import { match, withRouter } from 'react-router';
 import { History, Location, LocationState } from 'history';
 import StoreTableTitle from './StoreTableTitle';
@@ -23,16 +29,16 @@ const StoreTable: FC<Props> = props => {
     },
     {
       title: '已读',
-      dataIndex: 'is_looked',
-      key: 'is_looked',
+      dataIndex: 'isLooked',
+      key: 'isLooked',
       render(value: number) {
         return <div style={{textAlign: 'center'}}><Checkbox checked={value === 1} disabled/></div>;
       },
     },
     {
       title: '已下',
-      dataIndex: 'is_download',
-      key: 'is_download',
+      dataIndex: 'isDownLoad',
+      key: 'isDownLoad',
       render(value: number) {
         return <div style={{textAlign: 'center'}}><Checkbox checked={value === 1} disabled/></div>;
       },
@@ -81,9 +87,9 @@ const StoreTable: FC<Props> = props => {
       title: '详情链接',
       dataIndex: 'detailUrl',
       key: 'detailUrl',
-      render(value: string) {
+      render(value: string, row: TableListItem) {
         if (value) {
-          return <a href={value} target="_blank">查看</a>;
+          return <a href={value} onClick={()=>updateIsLookedApi(row.id)} target="_blank">查看</a>;
         }
         return ' - ';
       },
@@ -92,9 +98,9 @@ const StoreTable: FC<Props> = props => {
       title: '下载链接',
       dataIndex: 'downLoadUrl',
       key: 'downLoadUrl',
-      render(value: string) {
+      render(value: string, row: TableListItem) {
         if (value) {
-          return <a href={value} target="_blank">下载</a>;
+          return <a href={value} target="_blank" onClick={()=>updateIsDownloadApi(row.id)}>下载</a>;
         }
         return ' - ';
       },
