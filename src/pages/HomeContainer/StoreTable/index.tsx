@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Table } from 'antd';
 import { GetStoreTableListParams, TableListInfo } from '../../../server';
 import { match, withRouter } from 'react-router';
@@ -107,6 +107,7 @@ const StoreTable: FC<Props> = props => {
         // @ts-ignore
         pagination={{
           onChange: handlePageChange,
+          current: props.storeListInfo.pageNum,
           total: props.storeListInfo.total,
           showQuickJumper: true,
           hideOnSinglePage: true,
