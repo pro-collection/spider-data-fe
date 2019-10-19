@@ -4,8 +4,13 @@ import StoreTableSearchInput from './StoreTableSearchInput';
 import StoreTable from './StoreTable';
 import { getStoreTableList, GetStoreTableListParams, TableListInfo } from '../../server';
 import { message } from 'antd';
+import { Location, LocationState } from 'history';
 
-const HomeContainer: FC = () => {
+interface Props {
+  location: Location<LocationState>;
+}
+
+const HomeContainer: FC<Props> = props => {
   const [storeListInfo, updateStoreListInfo] = useState<TableListInfo>({
     list: [],
     pageNum: 0,
@@ -29,7 +34,7 @@ const HomeContainer: FC = () => {
   };
 
   useEffect(() => {
-    handleFetchList();
+    handleFetchList(props.location.state);
   }, []);
 
   return (
